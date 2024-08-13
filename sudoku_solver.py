@@ -16,17 +16,19 @@ def possible(grid, row, column, number):
     return True
 
 def solve(grid):
+    found_solution = False
     for row in range(9):
         for column in range(9):
             if grid[row][column] == 0:
                 for number in range(1, 10):
                     if possible(grid, row, column, number):
                         grid[row][column] = number
-                        solve(grid)
+                        found_solution = solve(grid) or found_solution
                         grid[row][column] = 0
-                return
+                return found_solution  # Return status to indicate if any solution was found
     print(np.matrix(grid))
     print()  # Print a blank line between solutions
+    return True  # Return True when a solution is found
 
 grid = [[9,0,6,0,7,0,4,0,3],
         [0,0,0,4,0,0,2,0,0],
@@ -38,4 +40,5 @@ grid = [[9,0,6,0,7,0,4,0,3],
         [0,0,7,0,0,5,0,0,0],
         [4,0,5,0,1,0,7,0,8]]
 
-solve(grid)
+if not solve(grid):
+    print("No solution exists.")
