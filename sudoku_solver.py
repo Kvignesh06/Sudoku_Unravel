@@ -22,12 +22,11 @@ def solve(grid):
                 for number in range(1, 10):
                     if possible(grid, row, column, number):
                         grid[row][column] = number
-                        if solve(grid):
-                            return True
+                        solve(grid)
                         grid[row][column] = 0
-                return False  # Return False if no number can be placed
+                return
     print(np.matrix(grid))
-    return True
+    print()  # Print a blank line between solutions
 
 grid = [[9,0,6,0,7,0,4,0,3],
         [0,0,0,4,0,0,2,0,0],
@@ -39,5 +38,4 @@ grid = [[9,0,6,0,7,0,4,0,3],
         [0,0,7,0,0,5,0,0,0],
         [4,0,5,0,1,0,7,0,8]]
 
-if not solve(grid):
-    print("No solution exists.")
+solve(grid)
